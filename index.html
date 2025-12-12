@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Rive Button Full Debug</title>
+  <script src="https://unpkg.com/@rive-app/canvas"></script>
+</head>
+<body style="margin:0;">
+
+  <!-- Canvas for Rive -->
+  <canvas id="riveCanvas" width="400" height="400" style="cursor:pointer;"></canvas>
+
+  <script>
+    const canvas = document.getElementById("riveCanvas");
+
+    // Debug: check if clicks reach the canvas
+    canvas.addEventListener("click", () => {
+      console.log("✔ Canvas clicked!");
+    });
+
+    // Event handler function
+    function handleRiveEvent(event) {
+      console.log("🔥 Rive event fired:", event.name);
+
+      if (event.name === "site") {
+        window.open("https://cocoartsproduction.com", "_blank");
+      }
+    }
+
+    // Create Rive instance
+    const riveButton = new rive.Rive({
+      src: "button.riv",                   // your Rive file
+      canvas: canvas,
+      stateMachines: "State Machine 1",    // your state machine name
+      autoplay: true,
+      pointerEvents: true,                  // enable pointer input
+      onLoad: () => console.log("✔ Rive loaded successfully"),
+      onEvent: handleRiveEvent
+    });
+
+    // Debug: manually trigger the event after 3 seconds
+    setTimeout(() => {
+      console.log("⏱ Manually calling event handler for debug");
+      handleRiveEvent({ name: "site" });
+    }, 3000);
+  </script>
+
+</body>
+</html>
