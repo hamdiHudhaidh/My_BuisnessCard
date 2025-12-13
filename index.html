@@ -20,6 +20,7 @@
       height: 100%;
       cursor: pointer;
       touch-action: manipulation;
+      background-color: #313131;
     }
   </style>
 </head>
@@ -76,6 +77,11 @@ function handleRiveEvent(event) {
   // }
 }
 
+function isMobileSafari() {
+  const ua = navigator.userAgent;
+  return /iP(ad|hone|od)/.test(ua) && /Safari/.test(ua) && !/CriOS|FxiOS|OPiOS|EdgiOS/.test(ua);
+}
+
 // --- Create Rive instance ---
 let riveButton = new rive.Rive({
   src: "button.riv",
@@ -121,14 +127,18 @@ let riveButton = new rive.Rive({
         window.open("https://hamdihud.myportfolio.com/", "_blank", "noopener,noreferrer");
       }  else if (state.indexOf("Instagram") > -1) {
         // console.log("W")
-        const url = "https://www.instagram.com/idmeh7991/";
-
-        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            window.location.href = url;
-          } 
-          else {
-          indow.open(url, "_blank", "noopener");
-          }
+        if (isMobileSafari()) {
+      // iOS Safari — use same-tab redirect or app link fallback
+        console.log("Safari");
+      window.location.href = "instagram://user?username=idmeh7991";
+      setTimeout(() => {
+        window.location.href = "https://www.instagram.com/idmeh7991/";
+      }, 600);
+    } else {
+      // Desktop / other browsers — open new tab
+      console.log("Chrome");
+      window.open("https://www.instagram.com/idmeh7991/", "_blank", "noopener,noreferrer");
+    }
       }
     });
   });
