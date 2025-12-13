@@ -118,27 +118,54 @@ let riveButton = new rive.Rive({
       // console.log(state)
       if (state.indexOf("WhatsApp") > -1) {
         // console.log("W");
-        window.open("https://wa.me/+966506032225", "_blank", "noopener,noreferrer");
+                if (isMobileSafari()) {
+      // iOS Safari — use same-tab redirect or app link fallback
+          //window.location.href = "instagram://user?username=idmeh7991";
+          setTimeout(() => {
+          window.location.href = "https://wa.me/+966506032225";
+          }, 600);
+        } else {
+      // Desktop / other browsers — open new tab
+            window.open("https://wa.me/+966506032225", "_blank", "noopener,noreferrer");
+        }
+        //window.open("https://wa.me/+966506032225", "_blank", "noopener,noreferrer");
       } else if (state.indexOf("LinkedIn") > -1) {
         // console.log("W")
-        window.open("https://www.linkedin.com/in/hamdi-hudhaidh/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", "_blank", "noopener,noreferrer");
+                if (isMobileSafari()) {
+      // iOS Safari — use same-tab redirect or app link fallback
+          //window.location.href = "instagram://user?username=idmeh7991";
+          setTimeout(() => {
+          window.location.href = "https://www.linkedin.com/in/hamdi-hudhaidh/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app";
+          }, 600);
+        } else {
+      // Desktop / other browsers — open new tab
+            window.open("https://www.linkedin.com/in/hamdi-hudhaidh/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", "_blank", "noopener,noreferrer");
+        }
+        //window.open("https://www.linkedin.com/in/hamdi-hudhaidh/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", "_blank", "noopener,noreferrer");
       } else if (state.indexOf("Portfolio") > -1) {
         // console.log("W")
-        window.open("https://hamdihud.myportfolio.com/", "_blank", "noopener,noreferrer");
+                if (isMobileSafari()) {
+      // iOS Safari — use same-tab redirect or app link fallback
+          //window.location.href = "instagram://user?username=idmeh7991";
+          setTimeout(() => {
+          window.location.href = "https://hamdihud.myportfolio.com/";
+          }, 600);
+        } else {
+      // Desktop / other browsers — open new tab
+            window.open("https://hamdihud.myportfolio.com/", "_blank", "noopener,noreferrer");
+        }
       }  else if (state.indexOf("Instagram") > -1) {
         // console.log("W")
         if (isMobileSafari()) {
       // iOS Safari — use same-tab redirect or app link fallback
-        console.log("Safari");
-      window.location.href = "instagram://user?username=idmeh7991";
-      setTimeout(() => {
-        window.location.href = "https://www.instagram.com/idmeh7991/";
-      }, 600);
-    } else {
+          //window.location.href = "instagram://user?username=idmeh7991";
+          setTimeout(() => {
+          window.location.href = "https://www.instagram.com/idmeh7991/";
+          }, 600);
+        } else {
       // Desktop / other browsers — open new tab
-      console.log("Chrome");
-      window.open("https://www.instagram.com/idmeh7991/", "_blank", "noopener,noreferrer");
-    }
+            window.open("https://www.instagram.com/idmeh7991/", "_blank", "noopener,noreferrer");
+        }
       }
     });
   });
