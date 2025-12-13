@@ -115,13 +115,20 @@ let riveButton = new rive.Rive({
         window.open("https://wa.me/+966506032225", "_blank", "noopener,noreferrer");
       } else if (state.indexOf("LinkedIn") > -1) {
         // console.log("W")
-        window.open("https://www.linkedin.com/in/hamdi-hudhaidh/", "_blank", "noopener,noreferrer");
+        window.open("https://www.linkedin.com/in/hamdi-hudhaidh/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", "_blank", "noopener,noreferrer");
       } else if (state.indexOf("Portfolio") > -1) {
         // console.log("W")
         window.open("https://hamdihud.myportfolio.com/", "_blank", "noopener,noreferrer");
       }  else if (state.indexOf("Instagram") > -1) {
         // console.log("W")
-        window.open("https://www.instagram.com/idmeh7991/", "_blank", "noopener,noreferrer");
+        const url = "https://www.instagram.com/idmeh7991/";
+
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            window.location.href = url;
+          } 
+          else {
+          indow.open(url, "_blank", "noopener");
+          }
       }
     });
   });
