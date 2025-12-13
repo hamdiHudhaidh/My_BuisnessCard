@@ -32,17 +32,27 @@ const canvas = document.getElementById("riveCanvas");
 const ctx = canvas.getContext("2d");
 
 // --- Canvas setup ---
+// function resizeCanvas() {
+//   const dpr = window.devicePixelRatio || 1;
+//   canvas.width = window.innerWidth * dpr;
+//   canvas.height = window.innerHeight * dpr;
+//   canvas.style.width = window.innerWidth + "px";
+//   canvas.style.height = window.innerHeight + "px";
+//   ctx.setTransform(1, 0, 0, 1, 0, 0);
+//   ctx.scale(dpr, dpr);
+// }
 function resizeCanvas() {
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = window.innerHeight * dpr;
-  canvas.style.width = window.innerWidth + "px";
-  canvas.style.height = window.innerHeight + "px";
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.scale(dpr, dpr);
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+      const width  = window.visualViewport?.width  || window.innerWidth;
+      const height = window.visualViewport?.height || window.innerHeight;
+
+      // 🔑 NO DPR MATH
+      canvas.width  = Math.floor(width);
+      canvas.height = Math.floor(height);
+    }
+
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+  window.visualViewport?.addEventListener("resize", resizeCanvas);
 
 // // --- Debug click ---
 // canvas.addEventListener("click", () => {
@@ -72,9 +82,9 @@ let riveButton = new rive.Rive({
   canvas: canvas,
   stateMachines: "State Machine 1",
   autoplay: true,
-  // fit: rive.Fit.Contain,
-  // alignment: rive.Alignment.Center,
-  fit: rive.Fit.Cover,
+  fit: rive.Fit.Contain,
+  alignment: rive.Alignment.Center,
+  // fit: rive.Fit.Cover,
   pointerEvents: true,
   onLoad: () => {
     // console.log("✔ Rive loaded successfully");
