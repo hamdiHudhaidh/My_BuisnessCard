@@ -39,8 +39,6 @@ function resizeCanvas() {
   canvas.style.height = window.innerHeight + "px";
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.scale(dpr, dpr);
-
-  
 }
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
@@ -91,6 +89,7 @@ let riveButton = new rive.Rive({
     // const inputs = riveButton.stateMachineInputs("State Machine 1");
     // console.log("🧩 Available Inputs:", inputs);
 
+    resizeCanvas();
 
     riveButton.on("statechange", (riveEvent) => {
       // console.log("Done");
