@@ -5,6 +5,7 @@
   <title>Full Screen Rive Button Mobile Ready</title>
   <script src="https://unpkg.com/@rive-app/canvas"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <style>
     html, body {
       margin: 0;
@@ -29,7 +30,7 @@
 const canvas = document.getElementById("riveCanvas");
 const ctx = canvas.getContext("2d");
 
-// Resize canvas to full screen and support high-DPI
+// --- Canvas setup ---
 function resizeCanvas() {
   const dpr = window.devicePixelRatio || 1;
   canvas.width = window.innerWidth * dpr;
@@ -39,42 +40,139 @@ function resizeCanvas() {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.scale(dpr, dpr);
 }
-
-// Initial resize and on window resize
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-// Debug: check if clicks reach the canvas
-canvas.addEventListener("click", () => {
-  console.log("✔ Canvas clicked!");
-});
+// // --- Debug click ---
+// canvas.addEventListener("click", () => {
+//   console.log("✔ Canvas clicked!");
+// });
 
-// Event handler function
+// --- Rive Event Handler ---
 function handleRiveEvent(event) {
-  console.log("🔥 Rive event fired:", event.name);
-  if (event.name === "site") {
-    window.open("https://cocoartsproduction.com", "_blank");
-  }
+  // console.log("🔥 Rive Event Fired:", event.name, event);
+
+  // // For testing, all events open Google
+  // if (
+  //   event.name === "LinkedIn 2" ||
+  //   event.name === "Portfolio 2" ||
+  //   event.name === "Instagram 2" ||
+  //   event.name === "WhatsApp 2" ||
+  //   event.name === "Trigger property"
+  // ) {
+  //   console.log("🌍 Opening Google from event:", event.name);
+  //   window.open("https://google.com", "_blank");
+  // }
 }
 
-// Create Rive instance
-const riveButton = new rive.Rive({
-  src: "button.riv",                   // your Rive file
+// --- Create Rive instance ---
+let riveButton = new rive.Rive({
+  src: "button.riv",
   canvas: canvas,
-  stateMachines: "State Machine 1",    // your state machine name
+  stateMachines: "State Machine 1",
   autoplay: true,
-  fit: rive.Fit.contain,               // preserves aspect ratio
-  alignment: rive.Alignment.center,    // center animation
-  pointerEvents: true,                 // enable clicks
-  onLoad: () => console.log("✔ Rive loaded successfully"),
+  fit: rive.Fit.contain,
+  alignment: rive.Alignment.center,
+  pointerEvents: true,
+  onLoad: () => {
+    // console.log("✔ Rive loaded successfully");
+
+
+    // Check what state machines are available
+  // console.log("🎬 Rive instance:", riveButton);
+  // console.log("📋 Available state machines:", riveButton.stateMachineNames);
+  // riveButton.play();
+  // console.log("🎬 Playing state machines:", riveButton.playingStateMachineNames);
+  
+
+// stateMachineInputs(stateMachineName: string): StateMachineInput[]
+    // const inputs = riveButton.stateMachineInputs("State Machine 1");
+    // console.log("🧩 Available Inputs:", inputs);
+
+
+    riveButton.on("statechange", (riveEvent) => {
+      // console.log("Done");
+    const newStates = riveEvent.data || [];
+    newStates.forEach((s) => {
+      const state = typeof s === "string" ? s : (s.name || String(s));
+      // console.log("A")
+      // console.log(state)
+      if (state.indexOf("WhatsApp") > -1) {
+        // console.log("W");
+        window.open("https://wa.me/+966506032225", "_blank", "noopener,noreferrer");
+      } else if (state.indexOf("LinkedIn") > -1) {
+        // console.log("W")
+        window.open("https://www.linkedin.com/in/hamdi-hudhaidh/", "_blank", "noopener,noreferrer");
+      } else if (state.indexOf("Portfolio") > -1) {
+        // console.log("W")
+        window.open("https://hamdihud.myportfolio.com/", "_blank", "noopener,noreferrer");
+      }  else if (state.indexOf("Instagram") > -1) {
+        // console.log("W")
+        window.open("https://www.instagram.com/idmeh7991/", "_blank", "noopener,noreferrer");
+      }
+    });
+  });
+
+// if (inputs[2]) {
+//   console.log("Fire");
+//   inputs[2].fire();  // Fire the first trigger
+// }
+
+//   console.log("🎬 Rive methods:", Object.getOwnPropertyNames(Object.getPrototypeOf(riveButton)));
+    
+
+
+
+// if (inputs && inputs[2]) {
+//   inputs[2].fire();
+//   console.log("Fire");
+// } else {
+//   console.log("⚠️ Trigger property not found in inputs");
+// }
+
+
+    
+    // const trigProp = vmi.trigger('Trigger property');
+    // const trigProp = vmi.trigger('Trigger property');
+
+    // function openSite() {
+    //   console.log("Site Openned");
+    // }
+
+    // trigProp.on(openSite());
+
+    // // --- Inspect inputs (data binding) ---
+    // const inputs = riveButton.stateMachineInputs("State Machine 1");
+    // console.log("🧩 Available Inputs:", inputs);
+
+    // for (const key in inputs) {
+    //   console.log("➡️ Input Found:", key, inputs[key]);
+    // }
+    
+
+    // --- Live input logging every second ---
+    // setInterval(() => {
+    //   for (const name in inputs) {
+    //     const input = inputs[name];
+    //     if (input.type === "Number" || input.type === "Bool") {
+    //       console.log(`🔹 Input ${name}:`, input.value);
+    //     }
+    //   }
+    // }, 1000);
+
+    // --- Example: fire trigger via JS after 5 seconds ---
+    // setTimeout(() => {
+    //   if (inputs["Trigger property"]) {
+    //     console.log("⏱ Firing trigger: Trigger property");
+    //     inputs["Trigger property"].fire();
+    //   }
+    // }, 5000);
+  },
   onEvent: handleRiveEvent
 });
 
-// Debug: manually trigger the event after 3 seconds
-setTimeout(() => {
-  console.log("⏱ Manually calling event handler for debug");
-  handleRiveEvent({ name: "site" });
-}, 3000);
+
+
 </script>
 
 </body>
