@@ -20,7 +20,7 @@
       height: 100%;
       cursor: pointer;
       touch-action: manipulation;
-      background-color: #12302E;
+      background-color: #313131;
     }
   </style>
 </head>
@@ -43,12 +43,16 @@ const ctx = canvas.getContext("2d");
 //   ctx.scale(dpr, dpr);
 // }
 function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
       const width  = window.visualViewport?.width  || window.innerWidth;
       const height = window.visualViewport?.height || window.innerHeight;
 
-      // 🔑 NO DPR MATH
-      canvas.width  = Math.floor(width);
-      canvas.height = Math.floor(height);
+      // Apply device pixel ratio for crisp rendering on high-DPI displays
+      canvas.width  = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = Math.floor(width) + "px";
+      canvas.style.height = Math.floor(height) + "px";
+      ctx.scale(dpr, dpr);
     }
 
   resizeCanvas();
@@ -234,4 +238,3 @@ let riveButton = new rive.Rive({
 
 </body>
 </html>
-
