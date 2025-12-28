@@ -46,10 +46,9 @@ function resizeCanvas() {
       const width  = window.visualViewport?.width  || window.innerWidth;
       const height = window.visualViewport?.height || window.innerHeight;
 
+      // 🔑 NO DPR MATH
       canvas.width  = Math.floor(width);
       canvas.height = Math.floor(height);
-      canvas.style.width = width + "px";
-      canvas.style.height = height + "px";
     }
 
   resizeCanvas();
