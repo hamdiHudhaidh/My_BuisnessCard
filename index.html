@@ -20,8 +20,8 @@
       height: 100%;
       cursor: pointer;
       touch-action: manipulation;
-      /* background-color: #12302E; */
-      background-color: #ffffff;
+      background-color: #12302E;
+      /* background-color: #000000; */
     }
   </style>
 </head>
@@ -89,22 +89,30 @@ function isMobileSafari() {
   return /iP(ad|hone|od)/.test(ua) && /Safari/.test(ua) && !/CriOS|FxiOS|OPiOS|EdgiOS/.test(ua);
 }
 
+function makeLayout(scale = 1.0) {
+  const inset = (1 - 1 / scale) / 2;
+
+  return new rive.Layout({
+    fit: rive.Fit.Contain,
+    alignment: rive.Alignment.Center,
+
+    // shrink the logical bounds → content scales up
+    minX: inset,
+    minY: inset,
+    maxX: 1 - inset,
+    maxY: 1 - inset
+  });
+}
+
 // --- Create Rive instance ---
 let riveButton = new rive.Rive({
   src: "button.riv",
   canvas: canvas,
   stateMachines: "State Machine 1",
   autoplay: true,
-
-  // fit: rive.Fit.Contain,
-  //   // fit: rive.Fit.Cover,
-  // alignment: rive.Alignment.Center,
-  layout: new rive.Layout({
-    fit: rive.Fit.Contain,
-    alignment: rive.Alignment.Center,
-    scale: 2   // 🔥 +10% scale
-  }),
-
+  fit: rive.Fit.Contain,
+    // fit: rive.Fit.Cover,
+  alignment: rive.Alignment.Center,
   pointerEvents: true,
   onLoad: () => {
     // console.log("✔ Rive loaded successfully");
