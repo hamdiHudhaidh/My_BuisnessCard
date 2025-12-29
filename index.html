@@ -21,7 +21,7 @@
       cursor: pointer;
       touch-action: manipulation;
       /* background-color: #12302E; */
-      background-color: #dadada;
+      background-color: #000000;
     }
   </style>
 </head>
@@ -44,21 +44,18 @@ const ctx = canvas.getContext("2d");
 //   ctx.scale(dpr, dpr);
 // }
 function resizeCanvas() {
-  const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap at 2 (important)
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
   const width  = window.visualViewport?.width  || window.innerWidth;
   const height = window.visualViewport?.height || window.innerHeight;
 
-  // CSS size (layout)
+  // CSS size
   canvas.style.width  = width + "px";
   canvas.style.height = height + "px";
 
-  // Internal resolution (clarity)
+  // Internal resolution ONLY
   canvas.width  = Math.floor(width * dpr);
   canvas.height = Math.floor(height * dpr);
-
-  const ctx = canvas.getContext("2d");
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 
   resizeCanvas();
