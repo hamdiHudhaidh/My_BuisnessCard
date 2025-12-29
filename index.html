@@ -20,7 +20,8 @@
       height: 100%;
       cursor: pointer;
       touch-action: manipulation;
-      background-color: #12302E;
+      /* background-color: #12302E; */
+      background-color: #dadada;
     }
   </style>
 </head>
@@ -43,13 +44,22 @@ const ctx = canvas.getContext("2d");
 //   ctx.scale(dpr, dpr);
 // }
 function resizeCanvas() {
-      const width  = window.visualViewport?.width  || window.innerWidth;
-      const height = window.visualViewport?.height || window.innerHeight;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap at 2 (important)
 
-      // 🔑 NO DPR MATH
-      canvas.width  = Math.floor(width);
-      canvas.height = Math.floor(height);
-    }
+  const width  = window.visualViewport?.width  || window.innerWidth;
+  const height = window.visualViewport?.height || window.innerHeight;
+
+  // CSS size (layout)
+  canvas.style.width  = width + "px";
+  canvas.style.height = height + "px";
+
+  // Internal resolution (clarity)
+  canvas.width  = Math.floor(width * dpr);
+  canvas.height = Math.floor(height * dpr);
+
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
 
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
@@ -88,7 +98,7 @@ let riveButton = new rive.Rive({
   canvas: canvas,
   stateMachines: "State Machine 1",
   autoplay: true,
-  fit: rive.Fit.Contain,
+  fit: rive.Fit.Cover,
   alignment: rive.Alignment.Center,
   // fit: rive.Fit.Cover,
   pointerEvents: true,
