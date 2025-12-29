@@ -95,9 +95,16 @@ let riveButton = new rive.Rive({
   canvas: canvas,
   stateMachines: "State Machine 1",
   autoplay: true,
-  fit: rive.Fit.Contain,
-    // fit: rive.Fit.Cover,
-  alignment: rive.Alignment.Center,
+
+  // fit: rive.Fit.Contain,
+  //   // fit: rive.Fit.Cover,
+  // alignment: rive.Alignment.Center,
+  layout: new rive.Layout({
+    fit: rive.Fit.Contain,
+    alignment: rive.Alignment.Center,
+    scale: 1.1   // 🔥 +10% scale
+  }),
+
   pointerEvents: true,
   onLoad: () => {
     // console.log("✔ Rive loaded successfully");
