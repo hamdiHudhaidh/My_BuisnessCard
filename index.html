@@ -98,9 +98,9 @@ let riveButton = new rive.Rive({
   canvas: canvas,
   stateMachines: "State Machine 1",
   autoplay: true,
-  fit: rive.Fit.Cover,
+  fit: rive.Fit.Contain,
+    // fit: rive.Fit.Cover,
   alignment: rive.Alignment.Center,
-  // fit: rive.Fit.Cover,
   pointerEvents: true,
   onLoad: () => {
     // console.log("✔ Rive loaded successfully");
